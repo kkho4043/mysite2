@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.javaex.Vo.GuestVo;
 import com.javaex.dao.GuestDao;
 import com.javaex.util.WepUtil;
+import com.javaex.vo.GuestVo;
 
 
 @WebServlet("/guest")
@@ -38,9 +38,6 @@ public class GuestController extends HttpServlet {
 		}else if("deleteForm".equals(action)) {
 			System.out.println("삭제폼");
 			
-			int no = Integer.parseInt(request.getParameter("no"));
-			
-			request.setAttribute("no",no);
 			WepUtil.forword(request, response,"/WEB-INF/views/guestbook/deleteForm.jsp");
 			
 		} else if("delete".equals(action)) {

@@ -1,4 +1,4 @@
-package com.javaex.Vo;
+package com.javaex.vo;
 
 public class UserVo {
 	private int no;
@@ -9,6 +9,12 @@ public class UserVo {
 	
 	
 	public UserVo() {
+		
+	}
+	
+	public UserVo(int no, String name) {
+		this.no = no;
+		this.name = name;
 		
 	}
 	

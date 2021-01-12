@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.Vo.GuestVo;
+import com.javaex.vo.GuestVo;
 
 public class GuestDao {
 	ResultSet rs = null;

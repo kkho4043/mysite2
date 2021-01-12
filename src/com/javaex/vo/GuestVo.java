@@ -1,4 +1,4 @@
-package com.javaex.Vo;
+package com.javaex.vo;
 
 public class GuestVo {
 	public int guestno;

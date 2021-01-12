@@ -3,6 +3,7 @@
 <%@ page import="com.javaex.vo.UserVo" %>
 <%
 	UserVo authUser = (UserVo)session.getAttribute("authUser");
+	UserVo userVo = (UserVo)request.getAttribute("userVo");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,7 @@
 			</ul>
 			<%}else{%>
 			<ul>
-				<li><a href="/mysite2/user?action=loginForm"><%=authUser.getName() %>님 환영합니다</a></li>
+				<li><%=authUser.getName() %>님 환영합니다</li>
 				<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
 				<li><a href="/mysite2/user?action=updateForm">정보수정</a></li>
 			</ul>
@@ -61,45 +62,78 @@
 		<div id="content">
 			
 			<div id="content-head">
-            	<h3>회원가입</h3>
+            	<h3>회원정보</h3>
             	<div id="location">
             		<ul>
             			<li>홈</li>
             			<li>회원</li>
-            			<li class="last">회원가입</li>
+            			<li class="last">회원정보</li>
             		</ul>
             	</div>
                 <div class="clear"></div>
             </div>
-            <!-- //content-head -->
+             <!-- //content-head -->
 
 			<div id="user">
-				<div id="joinOK">
-				
-					<p class="text-large bold">
-						회원가입을 축하합니다.<br>
-						<br>
-						<a href="/mysite2/user?action=loginForm" >[로그인하기]</a>
-					</p>
+				<div id="modifyForm">
+					<form action="/mysite2/user" method="get">
+
+						<!-- 아이디 -->
+						<div class="form-group">
+							<label class="form-text" for="input-uid">아이디</label> 
+							<span class="text-large bold"><%=userVo.getId() %></span>
+						</div>
+
+						<!-- 비밀번호 -->
+						<div class="form-group">
+							<label class="form-text" for="input-pass">패스워드</label> 
+							<input type="text" id="input-pass" name="pwd" value="<%=userVo.getPassward() %>" placeholder="비밀번호를 입력하세요"	>
+						</div>
+
+						<!-- 이메일 -->
+						<div class="form-group">
+							<label class="form-text" for="input-name">이름</label> 
+							<input type="text" id="input-name" name="name" value="<%=userVo.getName() %>" placeholder="이름을 입력하세요">
+						</div>
+
+						<!-- //나이 -->
+						<div class="form-group">
+							<span class="form-text">성별</span> 
+							
+							<label for="rdo-male">남</label> 
+							<input type="radio" id="rdo-male" name="gender" value="male" checked = "checked" > 
+							
+							<label for="rdo-female">여</label> 
+							<input type="radio" id="rdo-female" name="gender" value="female" <%if(userVo.getGender().equals("female")){%>checked = "checked" <%} %>> 
+
+						</div>
+
+						<!-- 버튼영역 -->
+		                <div class="button-area">
+		                    <button type="submit" id="btn-submit">회원정보수정</button>
+		                    <input type="hidden" name="id" value="<%=userVo.getId()%>">
+		                    <input type="hidden" name="action" value="update">
+		                </div>
 						
+					</form>
+				
+				
 				</div>
-				<!-- //joinOK -->
+				<!-- //modifyForm -->
 			</div>
 			<!-- //user -->
 		</div>
 		<!-- //content  -->
 		<div class="clear"></div>
-
+		
 		<div id="footer">
 			Copyright ⓒ 2020 황일영. All right reserved
 		</div>
 		<!-- //footer -->
-
+		
 	</div>
 	<!-- //wrap -->
 
 </body>
 
-</html>
-</body>
 </html>
