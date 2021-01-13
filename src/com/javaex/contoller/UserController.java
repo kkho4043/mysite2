@@ -59,7 +59,7 @@ public class UserController extends HttpServlet {
 			System.out.println(authVo);
 			if(authVo == null) {//실패
 				System.out.println("로그인 실패");
-				WepUtil.redirect(request, response, "/mysite2/user?action=loginForm");
+				WepUtil.redirect(request, response, "/mysite2/user?action=loginForm&result=fail");
 			}else {
 				//성공일때.
 				HttpSession session = request.getSession();

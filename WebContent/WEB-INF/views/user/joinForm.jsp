@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.vo.UserVo" %>
-<%
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
 
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,37 +13,10 @@
 
 <body>
 	<div id="wrap">
-
-		<div id="header">
-			<h1>
-				<a href="/mysite2/main">MySite</a>
-			</h1>
-
-			<%if(authUser==null){%>
-			<ul>
-				<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-				<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
-			</ul>
-			<%}else{%>
-			<ul>
-				<li><%=authUser.getName() %>님 환영합니다</li>
-				<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
-				<li><a href="/mysite2/user?action=updateForm">정보수정</a></li>
-			</ul>
-			<% }%>
-			
-		</div>
-		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="/mysite2/guest?action=addList">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
+		<!-- header navi 옮김-->		
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		
+	
 		<!-- //nav -->
 
 		<div id="aside">
@@ -133,9 +102,8 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 		
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
+		<!-- footer 옮김-->		
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<!-- //footer -->
 
 	</div>
