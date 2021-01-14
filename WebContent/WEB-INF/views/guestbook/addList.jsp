@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.List" %>
-<%@ page import="com.javaex.vo.UserVo" %>
-<%@ page import="com.javaex.vo.GuestVo" %>
-<%
-	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("glist");
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +16,7 @@
 	<div id="wrap">
 
 		<!-- header navi 옮김-->		
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
 		
 		<!-- //nav -->
 
@@ -60,9 +55,9 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th><label class="form-text" for="input-uname">이름</label></td>
+								<th><label class="form-text" for="input-uname">이름</label></th>
 								<td><input id="input-uname" type="text" name="name"></td>
-								<th><label class="form-text" for="input-pass">패스워드</label></td>
+								<th><label class="form-text" for="input-pass">패스워드</label></th>
 								<td><input id="input-pass"type="password" name="pwd"></td>
 								
 							</tr>
@@ -80,9 +75,8 @@
 					<input type="hidden" name="action" value="add">
 					
 				</form>	
+				<c:forEach items ="${glist}" var = "vo" varStatus="status">
 				
-				<%for(int i = 0; i < guestList.size();i++) {
-					GuestVo vo = guestList.get(i); %>
 				<table class="guestRead">
 					<colgroup>
 						<col style="width: 10%;">
@@ -91,16 +85,17 @@
 						<col style="width: 10%;">
 					</colgroup>
 					<tr>
-						<td><%=vo.getGuestno() %></td>
-						<td><%=vo.getName() %></td>
-						<td><%=vo.getDate() %></td>
-						<td><a href="/mysite2/guest?action=deleteForm&no=<%=vo.getGuestno()%>">[삭제]</a></td>
+						<td>${vo.guestno}</td>
+						<td>${vo.name}</td>
+						<td>${vo.date}</td>
+						<td><a href="/mysite2/guest?action=deleteForm&no=${vo.guestno}">[삭제]</a></td>
 					</tr>
 					<tr>
-						<td colspan=4 class="text-left"><%=vo.getContent() %></td>
+						<td colspan=4 class="text-left">${vo.content}</td>
 					</tr>
 				</table>
-				<%} %>
+				
+				</c:forEach>
 				<!-- //guestRead -->
 				
 			</div>
@@ -110,7 +105,7 @@
 		<div class="clear"></div>
 		
 		<!-- footer 옮김-->		
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url ="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 
 	</div>
