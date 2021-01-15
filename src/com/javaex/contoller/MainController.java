@@ -16,7 +16,7 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("maincontoller");
 		WepUtil.forword(request, response,"/WEB-INF/views/main/index.jsp");
-		System.out.println("maincontoller2");
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
