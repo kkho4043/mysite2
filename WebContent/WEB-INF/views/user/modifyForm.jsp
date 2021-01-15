@@ -96,7 +96,7 @@
 		                <div class="button-area">
 		                    <button type="submit" id="btn-submit">회원정보수정</button>
 		                    <input type="hidden" name="id" value="${requestScope.userVo.id}">
-		                    <input type="hidden" name="action" value="update">
+		                    <input type="hidden" name="action" value="modifi">
 		                </div>
 					</form>
 				

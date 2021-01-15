@@ -75,7 +75,7 @@ public class UserController extends HttpServlet {
 			session.invalidate();
 			
 			WepUtil.redirect(request,response,"/mysite2/main");
-		}else if("updateForm".equals(action)) {
+		}else if("modifyForm".equals(action)) {
 			
 			System.out.println("업데이트폼");
 			
@@ -86,8 +86,8 @@ public class UserController extends HttpServlet {
 			UserVo userVo = userDao.getUserall(authUser.getNo());
 			
 			request.setAttribute("userVo", userVo);
-			WepUtil.forword(request, response,"/WEB-INF/views/user/updateForm.jsp");
-		}else if("update".equals(action)) {
+			WepUtil.forword(request, response,"/WEB-INF/views/user/modifyForm.jsp");
+		}else if("modify".equals(action)) {
 			
 			System.out.println("업데이트");
 			
