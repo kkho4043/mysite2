@@ -17,17 +17,8 @@
 		<!-- header navi 옮김-->		
 		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
 		
-		<!-- //nav -->
-
-		<div id="aside">
-			<h2>회원</h2>
-			<ul>
-				<li>회원정보</li>
-				<li>로그인</li>
-				<li>회원가입</li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		<!-- aside 옮김 -->
+		<c:import url ="/WEB-INF/views/include/aside.jsp"></c:import >
 
 		<div id="content">
 			

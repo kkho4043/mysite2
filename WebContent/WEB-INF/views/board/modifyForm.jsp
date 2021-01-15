@@ -16,26 +16,9 @@
 
 		<!-- header navi 옮김-->		
 		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
-		
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
 
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		<!-- aside 옮김 -->
+		<c:import url ="/WEB-INF/views/include/aside.jsp"></c:import >
 
 
 		<div id="content">
@@ -55,47 +38,43 @@
 
 			<div id="board">
 				<div id="modifyForm">
-					<form action="#" method="get">
+					<form action="/mysite2/board" method="get">
 						<!-- 작성자 -->
 						<div class="form-group">
 							<span class="form-text">작성자</span>
-							<span class="form-value">정우성</span>
+							<span class="form-value">${boardVo.name}</span>
 						</div>
 						
 						<!-- 조회수 -->
 						<div class="form-group">
 							<span class="form-text">조회수</span>
-							<span class="form-value">123</span>
+							<span class="form-value">${boardVo.hit}</span>
 						</div>
 						
 						<!-- 작성일 -->
 						<div class="form-group">
 							<span class="form-text">작성일</span>
-							<span class="form-value">2020-03-02</span>
+							<span class="form-value">${boardVo.date}</span>
 						</div>
 						
 						<!-- 제목 -->
 						<div class="form-group">
 							<label class="form-text" for="txt-title">제목</label>
-							<input type="text" id="txt-title" name="" value="여기에는 글제목이 출력됩니다.">
+							<input type="text" id="txt-title" name="title" value="${boardVo.title}">
 						</div>
 					
 						
-					
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea id="txt-content">여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.
-여기에는 본문내용이 출력됩니다.</textarea>
+							<textarea id="txt-content" name ="content">${boardVo.content}</textarea>
 						</div>
+						<c:if test="${sessionScope.authUser.name eq boardVo.name}">
+						<a id="btn_cancel" href="/mysite2/board">취소</a>
+						<button id="btn_modify" type="submit">수정</button>
+						</c:if>
+						<input type="text" name="action" value="modify">
+						<input type="text"name="no" value="${param.no}">
 						
-						<a id="btn_cancel" href="">취소</a>
-						<button id="btn_modify" type="submit" >수정</button>
 						
 					</form>
 	                <!-- //form -->

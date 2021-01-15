@@ -48,6 +48,34 @@ public class BoardDao {
 		}
 
 	}
+
+	public int insert(BoardVo boardVo) {
+
+		getConnection();
+		int count = 0;
+		try {
+
+			String query = "";
+			query += " insert into board";
+			query += " values(seq_board_no.nextval,?,?,0,sysdate,?)";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, boardVo.getTitle());
+			pstmt.setString(2, boardVo.getContent());
+			pstmt.setInt(3, boardVo.getUserno());
+
+			count = pstmt.executeUpdate();
+
+			System.out.println("[" + count + "건 완료.]");
+
+		} catch (SQLException e) {
+			System.out.println("errorinsert:" + e);
+		}
+		close();
+		return count;
+	}
+
 //=========list
 	public List<BoardVo> getboardList() {
 
@@ -55,35 +83,148 @@ public class BoardDao {
 
 		getConnection();
 		try {
-			
+
 			String query = "";
 
 			query += " SELECT b.no, ";
 			query += " 		  b.title, ";
 			query += "        u.name, ";
-			query += "        b.hit, ";
-			query += "        b.reg_date ";
+			query += "        b.hit,";
+			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
+			query += "        b.content ";
 			query += " FROM board b, users u";
 			query += " WHERE b.user_no = u.no";
+			query += " order by reg_date asc";
 
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				int no = rs.getInt("no");
-				String title = rs.getString("title");
-				String name = rs.getString("name");
+				String title = rs.getNString("title");
+				String name = rs.getNString("name");
 				int hit = rs.getInt("hit");
 				String date = rs.getString("reg_date");
-				BoardVo vo = new BoardVo(no,title,name,hit,date);
+				String content = rs.getString("content");
+
+				BoardVo vo = new BoardVo(no, title, name, hit, date, content);
 				boardList.add(vo);
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("errorlist:" + e);
 		}
 		close();
-		return  boardList;
+		return boardList;
 	}
-	
+//read
+	public BoardVo getRead(int bno) {
+
+		BoardVo readList = new BoardVo();
+		int count = 0;
+		getConnection();
+		try {
+			
+			String query = "";
+
+			query += " update board ";
+			query += " set hit = hit + 1 ";
+			query += " where no = ? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bno);
+			
+			count = pstmt.executeUpdate();
+			
+			query = "";
+
+			query += " SELECT b.no, ";
+			query += " 		  b.title, ";
+			query += "        u.name, ";
+			query += "        b.hit,";
+			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
+			query += "        b.content ";
+			query += " FROM board b, users u";
+			query += " WHERE b.user_no = u.no";
+			query += " and b.no = ?";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, bno);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getNString("title");
+				String name = rs.getNString("name");
+				int hit = rs.getInt("hit");
+				String date = rs.getString("reg_date");
+				String content = rs.getString("content");
+
+				readList = new BoardVo(no, title, name, hit, date, content);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("errorlist:" + e);
+		}
+		close();
+		return readList;
+	}
+
+// modify
+	public int boardmodify(String title, String content, int no) {
+
+		getConnection();
+		int count = 0;
+		try {
+
+			String query = "";
+			query += " update board ";
+			query += " set title = ?, ";
+			query += "     content = ? ";
+			query += " where no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, no);
+
+			count = pstmt.executeUpdate();
+
+			// 4.���ó��
+			System.out.println("[" + count + "건 변경완료.]");
+
+		} catch (SQLException e) {
+			System.out.println("errorlist:" + e);
+		}
+		close();
+		return count;
+	}
+//delete
+	public int boardDelete(int no) {
+		getConnection();
+		int count = 0;
+		try {
+
+			String query = "";
+			query += " delete from board ";
+			query += " where no = ? ";
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, no);
+
+			count = pstmt.executeUpdate();
+
+			// 4.���ó��
+			System.out.println("[" + count + "건 잘 삭제됨.]");
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} 
+		close();
+		return count;
+	}
+
 }

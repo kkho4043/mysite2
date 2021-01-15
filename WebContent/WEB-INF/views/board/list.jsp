@@ -16,15 +16,10 @@
 
 		<!-- header navi 옮김-->		
 		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
-	
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+		
+		<!-- aside 옮김 -->
+		<c:import url ="/WEB-INF/views/include/aside.jsp"></c:import >
+		
 
 		<div id="content">
 
@@ -61,14 +56,16 @@
 							</tr>
 						</thead>
 						<tbody>
+							
 							<c:forEach items ="${blist}" var = "vo" varStatus="status">
 								<tr>
-									<td>${vo.no}</td>
-									<td class="text-left"><a href="#">${vo.title}</a></td>
+									<td>${vo.no} </td>
+									<td class="text-left"><a href="/mysite2/board?action=read&no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.name}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.date}</td>
-									<td><a href="">[삭제]</a></td>
+									<td><c:if test="${sessionScope.authUser.name == vo.name}"><a href="/mysite2/board?action=delete&no=${vo.no}">[삭제]</a></c:if></td>
+									
 								</tr>
 							</c:forEach>	
 						</tbody>
@@ -93,7 +90,7 @@
 						
 						<div class="clear"></div>
 					</div>
-					<a id="btn_write" href="">글쓰기</a>
+					<c:if test="${!empty sessionScope.authUser}"><a id="btn_write" href="/mysite2/board?action=writeForm">글쓰기</a></c:if>
 				
 				</div>
 				<!-- //list -->

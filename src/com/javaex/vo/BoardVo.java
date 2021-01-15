@@ -10,14 +10,11 @@ public class BoardVo {
 	
 	public String name;
 	
-	
-	
 	public BoardVo() {
 		
 	}
 
 	public BoardVo(int no, String title, String content, int hit, String date, int userno) {
-		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -26,15 +23,27 @@ public class BoardVo {
 		this.userno = userno;
 	}
 	
+	public BoardVo(String title, String content, int userno) {// 글쓰기시 사용
+		this.title = title;
+		this.content = content;
+		this.userno = userno;
+	}
 	
 	public BoardVo(int no, String title, String name, int hit, String date) { //리스트 출력시 사용
-		super();
 		this.no = no;
 		this.title = title;
 		this.name = name;
 		this.hit = hit;
 		this.date = date;
-		
+	}
+	
+	public BoardVo(int no, String title, String name, int hit, String date,String content) { //read 출력시 사용
+		this.no = no;
+		this.title = title;
+		this.name = name;
+		this.hit = hit;
+		this.date = date;
+		this.content = content;
 	}
 
 	public int getNo() {

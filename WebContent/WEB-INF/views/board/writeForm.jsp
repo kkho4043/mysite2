@@ -16,28 +16,10 @@
 
 		<!-- header navi 옮김-->		
 		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
+
+		<!-- aside 옮김 -->
+		<c:import url ="/WEB-INF/views/include/aside.jsp"></c:import >
 		
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
-
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
-
-
 		<div id="content">
 
 			<div id="content-head">
@@ -59,16 +41,19 @@
 						<!-- 제목 -->
 						<div class="form-group">
 							<label class="form-text" for="txt-title">제목</label>
-							<input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요">
+							<input type="text" id="txt-title" name="title" value="" placeholder="제목을 입력해 주세요">
 						</div>
 					
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea id="txt-content"></textarea>
+							<textarea id="txt-content" name = "content"></textarea>
 						</div>
-						
-						<a id="btn_cancel" href="">취소</a>
-						<button id="btn_add" type="submit" >등록</button>
+						<c:if test="${!empty sessionScope.authUser}">
+							<a id="btn_cancel" href="">취소</a>
+							
+							<button id="btn_add" type="submit" >등록</button>
+							<input type="text" name="action" value="write">
+						</c:if>
 						
 					</form>
 	                <!-- //form -->

@@ -17,24 +17,8 @@
 		<!-- header navi 옮김-->		
 		<c:import url ="/WEB-INF/views/include/header.jsp"></c:import >
 		
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
-
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
+		<!-- aside 옮김 -->
+		<c:import url ="/WEB-INF/views/include/aside.jsp"></c:import >
 		<!-- //aside -->
 
 		<div id="content">
@@ -58,43 +42,36 @@
 						<!-- 작성자 -->
 						<div class="form-group">
 							<span class="form-text">작성자</span>
-							<span class="form-value">정우성</span>
+							<span class="form-value">${boardVo.name}</span>
 						</div>
 						
 						<!-- 조회수 -->
 						<div class="form-group">
 							<span class="form-text">조회수</span>
-							<span class="form-value">123</span>
+							<span class="form-value">${boardVo.hit}</span>
 						</div>
 						
 						<!-- 작성일 -->
 						<div class="form-group">
 							<span class="form-text">작성일</span>
-							<span class="form-value">2020-03-02</span>
+							<span class="form-value">${boardVo.date}</span>
 						</div>
 						
 						<!-- 제목 -->
 						<div class="form-group">
 							<span class="form-text">제 목</span>
-							<span class="form-value">여기에는 글제목이 출력됩니다.</span>
+							<span class="form-value">${boardVo.title}</span>
 						</div>
 					
 						<!-- 내용 -->
 						<div id="txt-content">
 							<span class="form-value" >
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
+								${boardVo.content}
 							</span>
 						</div>
-						
-						<a id="btn_modify" href="">수정</a>
-						<a id="btn_modify" href="">목록</a>
+						<c:if test="${sessionScope.authUser.name == boardVo.name}"><a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${param.no}">수정</a>
+						</c:if>
+						<a id="btn_modify" href="/mysite2/board">목록</a>
 						
 					</form>
 	                <!-- //form -->
