@@ -37,15 +37,27 @@ public class BoardVo {
 		this.date = date;
 	}
 	
-	public BoardVo(int no, String title, String name, int hit, String date,String content) { //read 출력시 사용
+	public BoardVo(int no, int userno, String title, String name, int hit, String date) { //read 출력시 사용
+		this.no = no;
+		this.title = title;
+		this.name = name;
+		this.hit = hit;
+		this.date = date;
+		this.userno = userno;
+	}
+	
+	public BoardVo(int no, String title, String name, int hit, String date,String content ,int userno) { //read 출력시 사용
 		this.no = no;
 		this.title = title;
 		this.name = name;
 		this.hit = hit;
 		this.date = date;
 		this.content = content;
+		this.userno = userno;
 	}
 
+	
+	
 	public int getNo() {
 		return no;
 	}

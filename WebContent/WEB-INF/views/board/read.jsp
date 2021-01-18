@@ -69,7 +69,7 @@
 								${boardVo.content}
 							</span>
 						</div>
-						<c:if test="${sessionScope.authUser.name == boardVo.name}"><a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${param.no}">수정</a>
+						<c:if test="${sessionScope.authUser.no == boardVo.userno}"><a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${param.no}">수정</a>
 						</c:if>
 						<a id="btn_modify" href="/mysite2/board">목록</a>
 						

@@ -91,7 +91,7 @@ public class BoardDao {
 			query += "        u.name, ";
 			query += "        b.hit,";
 			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
-			query += "        b.content ";
+			query += "        b.user_no ";
 			query += " FROM board b, users u";
 			query += " WHERE b.user_no = u.no";
 			query += " order by reg_date asc";
@@ -105,9 +105,8 @@ public class BoardDao {
 				String name = rs.getNString("name");
 				int hit = rs.getInt("hit");
 				String date = rs.getString("reg_date");
-				String content = rs.getString("content");
-
-				BoardVo vo = new BoardVo(no, title, name, hit, date, content);
+				int userno = rs.getInt("user_no");
+				BoardVo vo = new BoardVo(no, userno,title, name, hit, date);
 				boardList.add(vo);
 			}
 
@@ -144,7 +143,8 @@ public class BoardDao {
 			query += "        u.name, ";
 			query += "        b.hit,";
 			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
-			query += "        b.content ";
+			query += "        b.content, ";
+			query += "        b.user_no ";
 			query += " FROM board b, users u";
 			query += " WHERE b.user_no = u.no";
 			query += " and b.no = ?";
@@ -162,8 +162,9 @@ public class BoardDao {
 				int hit = rs.getInt("hit");
 				String date = rs.getString("reg_date");
 				String content = rs.getString("content");
+				int userno = rs.getInt("user_no");
 
-				readList = new BoardVo(no, title, name, hit, date, content);
+				readList = new BoardVo(no, title, name, hit, date, content,userno);
 			}
 
 		} catch (SQLException e) {
@@ -242,7 +243,8 @@ public class BoardDao {
 			query += "        u.name, ";
 			query += "        b.hit,";
 			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
-			query += "        b.content ";
+			query += "        b.content, ";
+			query += "        b.user_no ";
 			query += " FROM board b, users u";
 			query += " WHERE(";
 			query += " b.no LIKE '%" + search + "%' ";
@@ -259,8 +261,8 @@ public class BoardDao {
 				String name = rs.getNString("name");
 				int hit = rs.getInt("hit");
 				String date = rs.getString("reg_date");
-
-				BoardVo vo = new BoardVo(no, title, name, hit, date);
+				int userno = rs.getInt("user_no");
+				BoardVo vo = new BoardVo(no,userno,title, name, hit, date);
 				searchList.add(vo);
 			}
 
