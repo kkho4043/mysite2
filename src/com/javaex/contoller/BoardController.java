@@ -23,8 +23,9 @@ public class BoardController extends HttpServlet {
 		System.out.println("boardcontoller");
 		
 		
-		String action = request.getParameter("action");
 		
+		String action = request.getParameter("action");
+		System.out.println("action = " + action);
 		if("read".equals(action)) {
 			
 			int no = Integer.parseInt(request.getParameter("no"));
@@ -36,6 +37,17 @@ public class BoardController extends HttpServlet {
 			
 			request.setAttribute("boardVo",boardVo);
 			WepUtil.forword(request, response,"/WEB-INF/views/board/read.jsp");
+		}else if("search".equals(action)) {
+			
+			String str = request.getParameter("str");
+			BoardDao boardDao = new BoardDao();
+			
+			List<BoardVo> boardList = boardDao.boardSearch(str);
+			
+			request.setAttribute("blist", boardList);
+			WepUtil.forword(request, response,"/WEB-INF/views/board/list.jsp");
+			
+			
 		}else if("delete".equals(action)) {
 			int no = Integer.parseInt(request.getParameter("no"));
 			

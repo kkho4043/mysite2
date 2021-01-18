@@ -117,6 +117,7 @@ public class BoardDao {
 		close();
 		return boardList;
 	}
+
 //read
 	public BoardVo getRead(int bno) {
 
@@ -124,18 +125,18 @@ public class BoardDao {
 		int count = 0;
 		getConnection();
 		try {
-			
+
 			String query = "";
 
 			query += " update board ";
 			query += " set hit = hit + 1 ";
 			query += " where no = ? ";
-			
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, bno);
-			
+
 			count = pstmt.executeUpdate();
-			
+
 			query = "";
 
 			query += " SELECT b.no, ";
@@ -202,6 +203,7 @@ public class BoardDao {
 		close();
 		return count;
 	}
+
 //delete
 	public int boardDelete(int no) {
 		getConnection();
@@ -222,9 +224,52 @@ public class BoardDao {
 			System.out.println("[" + count + "건 잘 삭제됨.]");
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
-		} 
+		}
 		close();
 		return count;
+	}
+
+	// search
+	public List<BoardVo> boardSearch(String search) {
+		List<BoardVo> searchList = new ArrayList<BoardVo>();
+		getConnection();
+
+		try {
+
+			String query = "";
+			query += " SELECT b.no, ";
+			query += " 		  b.title, ";
+			query += "        u.name, ";
+			query += "        b.hit,";
+			query += "        TO_CHAR((b.reg_date),'YYYY/MM/DD HH:MI') reg_date,";
+			query += "        b.content ";
+			query += " FROM board b, users u";
+			query += " WHERE(";
+			query += " b.no LIKE '%" + search + "%' ";
+			query += " or b.title LIKE '%" + search + "%' ";
+			query += " or u.name LIKE '%" + search + "%') ";
+			query += " and b.user_no = u.no";
+
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String title = rs.getNString("title");
+				String name = rs.getNString("name");
+				int hit = rs.getInt("hit");
+				String date = rs.getString("reg_date");
+
+				BoardVo vo = new BoardVo(no, title, name, hit, date);
+				searchList.add(vo);
+			}
+
+			System.out.println(search+" 검색");
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		close();
+		return searchList;
 	}
 
 }
